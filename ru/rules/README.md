@@ -8,19 +8,27 @@
 *что за продукт*. Конкретные предметные области, интеграции и доменные доктрины —
 отдельный продуктовый слой поверх этих правил.
 
+> **Стек:** конкретика заточена под **backend на FastAPI (Python) + frontend на Next.js
+> (TypeScript)**. Многие правила кодируют практики этого стека (dishka DI,
+> SQLAlchemy/Alembic, Pydantic, App Router) — на другом стеке принципы могут держаться,
+> а конкретика — нет.
+
 ---
 
 ## Карта документов
 
 ### Быстрая сверка
 - **[RULES_CHECKLIST.md](RULES_CHECKLIST.md)** — весь свод одним нумерованным
-  чек-листом (115 правил, одна строка = одно правило) для ревью и PR. При конфликте
+  чек-листом (128 правил, одна строка = одно правило) для ревью и PR. При конфликте
   побеждает полный документ.
 
 ### Платформенный слой (над всем, приоритет при конфликте)
 - **[PLATFORM.md](PLATFORM.md)** — сквозные принципы: API-first / multi-client,
   контракт API как единственный шов, casing, единый формат ошибки, версионирование,
   модель идентичности для всех клиентов, конфигурация и среды, наблюдаемость.
+- **[GIT_AND_DELIVERY.md](GIT_AND_DELIVERY.md)** — сквозной процесс доставки: trunk-based
+  ветвление, PR, squash-merge, автоматический релиз, продвижение окружений, zero-downtime
+  деплой и откат (плюс необязательные рекомендации по тулингу).
 
 ### Backend
 - **[BACKEND_RULES.md](BACKEND_RULES.md)** — законы: стек, чистая архитектура, слои,
@@ -42,7 +50,7 @@
 ## Приоритет при конфликте
 
 ```
-PLATFORM.md  >  BACKEND_RULES.md / FRONTEND_STRUCTURE.md  >  *_STRUCTURE / PRODUCTION
+PLATFORM.md / GIT_AND_DELIVERY.md  >  BACKEND_RULES.md / FRONTEND_STRUCTURE.md  >  *_STRUCTURE / PRODUCTION
 ```
 
 Если частное правило противоречит платформенному принципу — **побеждает принцип** (или
@@ -55,17 +63,18 @@ PLATFORM.md  >  BACKEND_RULES.md / FRONTEND_STRUCTURE.md  >  *_STRUCTURE / PRODU
 2. [BACKEND_RULES.md](BACKEND_RULES.md) → [BACKEND_STRUCTURE.md](BACKEND_STRUCTURE.md)
    — архитектура и как её воспроизвести в коде.
 3. [FRONTEND_STRUCTURE.md](FRONTEND_STRUCTURE.md) — клиентская сторона.
-4. [BACKEND_RULES_PRODUCTION.md](BACKEND_RULES_PRODUCTION.md) — перед выходом в прод.
+4. [GIT_AND_DELIVERY.md](GIT_AND_DELIVERY.md) — как код едет: ветки, PR, релиз, деплой.
+5. [BACKEND_RULES_PRODUCTION.md](BACKEND_RULES_PRODUCTION.md) — перед выходом в прод.
 
 ---
 
 ## Скиллы-спутники
 
 Правила операционализированы скиллами в [.claude/skills/](../.claude/skills/) —
-типовые процедуры, которые исполняют свод на практике: `new-domain`, `new-endpoint`,
-`new-event`, `new-frontend-section`, `rules-review`, `rules-sync` (карта — в корневом
-[CLAUDE.md](../CLAUDE.md)). Изменение правил тянет обновление скиллов — это шаг
-`rules-sync`.
+типовые процедуры, которые исполняют свод на практике: `plan` (идея → план по фазам),
+`new-domain`, `new-endpoint`, `new-event`, `new-frontend-section`, `rules-review`,
+`rules-sync`. Обычный поток: `plan` → скиллы сборки по срезам → `rules-review` перед
+каждым мерджем. Изменение правил тянет обновление скиллов — это шаг `rules-sync`.
 
 ## Статус и заметки
 

@@ -9,19 +9,27 @@ The rules are **reusable across products**: they describe *how to build*, not *w
 product is*. Specific domains, integrations, and domain doctrines are a separate product
 layer on top of these rules.
 
+> **Stack scope:** the concrete guidance targets a **FastAPI (Python) backend + Next.js
+> (TypeScript) frontend**. Many rules encode stack-specific practice (dishka DI,
+> SQLAlchemy/Alembic, Pydantic, the App Router) — on another stack the principles may hold
+> but the specifics will not.
+
 ---
 
 ## Document Map
 
 ### Quick Check
 - **[RULES_CHECKLIST.md](RULES_CHECKLIST.md)** — the entire ruleset as a single numbered
-  checklist (115 rules, one line = one rule) for reviews and PRs. In case of conflict,
+  checklist (128 rules, one line = one rule) for reviews and PRs. In case of conflict,
   the full document wins.
 
 ### Platform Layer (above everything, takes priority on conflict)
 - **[PLATFORM.md](PLATFORM.md)** — cross-cutting principles: API-first / multi-client,
   the API contract as the single seam, casing, a unified error format, versioning,
   an identity model for all clients, configuration and environments, observability.
+- **[GIT_AND_DELIVERY.md](GIT_AND_DELIVERY.md)** — cross-cutting delivery workflow:
+  trunk-based branching, pull requests, squash-merge, automatic release, environment
+  promotion, zero-downtime deployment and rollback (plus non-normative tooling notes).
 
 ### Backend
 - **[BACKEND_RULES.md](BACKEND_RULES.md)** — the laws: stack, clean architecture, layers,
@@ -43,7 +51,7 @@ layer on top of these rules.
 ## Priority on Conflict
 
 ```
-PLATFORM.md  >  BACKEND_RULES.md / FRONTEND_STRUCTURE.md  >  *_STRUCTURE / PRODUCTION
+PLATFORM.md / GIT_AND_DELIVERY.md  >  BACKEND_RULES.md / FRONTEND_STRUCTURE.md  >  *_STRUCTURE / PRODUCTION
 ```
 
 If a specific rule contradicts a platform principle, **the principle wins** (or the
@@ -56,16 +64,18 @@ security/architecture invariants, only tighten them for its own domain.
 2. [BACKEND_RULES.md](BACKEND_RULES.md) → [BACKEND_STRUCTURE.md](BACKEND_STRUCTURE.md)
    — the architecture and how to reproduce it in code.
 3. [FRONTEND_STRUCTURE.md](FRONTEND_STRUCTURE.md) — the client side.
-4. [BACKEND_RULES_PRODUCTION.md](BACKEND_RULES_PRODUCTION.md) — before going to production.
+4. [GIT_AND_DELIVERY.md](GIT_AND_DELIVERY.md) — how code ships: branches, PRs, release, deploy.
+5. [BACKEND_RULES_PRODUCTION.md](BACKEND_RULES_PRODUCTION.md) — before going to production.
 
 ---
 
 ## Companion Skills
 
 The rules are operationalized through skills in [.claude/skills/](../.claude/skills/) —
-standard procedures that execute the ruleset in practice: `new-domain`, `new-endpoint`,
-`new-event`, `new-frontend-section`, `rules-review`, `rules-sync` (the map is in the root
-[CLAUDE.md](../CLAUDE.md)). Changing the rules entails updating the skills — this is the
+standard procedures that execute the ruleset in practice: `plan` (idea → phased delivery
+plan), `new-domain`, `new-endpoint`, `new-event`, `new-frontend-section`, `rules-review`,
+`rules-sync`. The usual flow is `plan` → the build skills per slice → `rules-review`
+before each merge. Changing the rules entails updating the skills — this is the
 `rules-sync` step.
 
 ## Status and Notes

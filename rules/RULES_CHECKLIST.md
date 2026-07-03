@@ -161,3 +161,19 @@
 113. Client-side validation duplicates server-side validation, it does not replace it.
 114. Uninstrumented data is shown as "Pending", not fabricated.
 115. Accessibility is a release gate: semantics, keyboard, focus, contrast.
+
+## Git and delivery
+
+116. Trunk-based: short-lived branches off `main`, named `type/short-slug`; no long-lived `develop`/`release` branches.
+117. `main` is protected and always deployable: no direct pushes; every change lands via PR.
+118. A PR is small and single-purpose, with green CI (lint, types, tests, OpenAPI diff) and at least one review before merge.
+119. Squash-merge only: a PR collapses into one Conventional Commit; history stays linear (no merge commits; rebase stale branches).
+120. Release is automatic: semantic-release on push to `main` computes the SemVer version and builds an immutable image (rule 102).
+121. Build once, promote the same artifact: the image from merge runs in staging then production, never rebuilt per environment.
+122. Environments flow `local → staging → production`; only config/secrets differ, injected from the environment.
+123. Staging deploys automatically; production is gated by an explicit human approval, never an unattended auto-push.
+124. Migrations run as a separate pre-deploy step, backward-compatible (expand→contract), before the new code takes traffic.
+125. Zero-downtime rolling rollout gated by readiness; old and new instances coexist, so each release is schema-compatible with the previous one.
+126. Rollback = redeploy the previous image; a destructive (contract) migration ships only a release after its code is gone, so rollback needs no schema rollback.
+127. Every deploy is traceable to a commit and a version tag; the running artifact is identifiable.
+128. Deploy tooling is a recommendation, not a rule; whatever it is, it honors the principles above (one artifact, config from env, expand→contract, readiness-gated rollout, rollback by redeploy).

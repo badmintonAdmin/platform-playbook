@@ -1,11 +1,11 @@
 ---
 name: rules-review
-description: Check a diff / PR / files against the 115 platform rules in RULES_CHECKLIST.md and produce a report of violations with rule numbers. Use when the user asks to check code against the platform rules ("check against the rules", "checklist audit", "rules review/audit", before merging significant changes).
+description: Check a diff / PR / files against the 128 platform rules in RULES_CHECKLIST.md and produce a report of violations with rule numbers. Use when the user asks to check code against the platform rules ("check against the rules", "checklist audit", "rules review/audit", before merging significant changes).
 ---
 
 # Platform Rules Audit
 
-Source of truth: [rules/RULES_CHECKLIST.md](../../../rules/RULES_CHECKLIST.md) (115
+Source of truth: [rules/RULES_CHECKLIST.md](../../../rules/RULES_CHECKLIST.md) (128
 rules). When a checklist line is ambiguous, open the full document
 (PLATFORM / BACKEND_RULES / BACKEND_STRUCTURE / PRODUCTION / FRONTEND_STRUCTURE);
 it takes precedence.
@@ -19,7 +19,7 @@ code review: flag logic errors in a separate "outside the checklist" section, br
 - List the affected areas: backend domains, core, migrations, events, frontend.
 
 ## Step 2 — select the applicable sections
-Don't run all 115 rules against every file — take the relevant sections:
+Don't run all 128 rules against every file — take the relevant sections:
 
 | In the diff | Checklist sections |
 |---|---|
@@ -29,6 +29,7 @@ Don't run all 115 rules against every file — take the relevant sections:
 | routers / schemas (contract) | Platform/API (1–16) |
 | frontend | Frontend (103–115), Platform/API (5–11, 14) |
 | infrastructure / CI / Docker | Operations (89–97), Security (86–87), Tests (98–102) |
+| branches / PRs / release / deploy | Git and delivery (116–128) |
 
 ## Step 3 — verify and reach a verdict
 For each candidate violation — **confirm against the code** (read the context, don't

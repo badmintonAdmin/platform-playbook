@@ -1,11 +1,11 @@
 ---
 name: rules-review
-description: Проверить дифф / PR / файлы на соответствие 115 правилам платформы из RULES_CHECKLIST.md и выдать отчёт о нарушениях с номерами правил. Use when the user asks to check code against the platform rules ("проверь по правилам", "аудит по чек-листу", "rules review/audit", before merging significant changes).
+description: Проверить дифф / PR / файлы на соответствие 128 правилам платформы из RULES_CHECKLIST.md и выдать отчёт о нарушениях с номерами правил. Use when the user asks to check code against the platform rules ("проверь по правилам", "аудит по чек-листу", "rules review/audit", before merging significant changes).
 ---
 
 # Аудит по правилам платформы
 
-Источник истины: [rules/RULES_CHECKLIST.md](../../../rules/RULES_CHECKLIST.md) (115
+Источник истины: [rules/RULES_CHECKLIST.md](../../../rules/RULES_CHECKLIST.md) (128
 правил). При спорной трактовке строки чек-листа — открыть полный документ
 (PLATFORM / BACKEND_RULES / BACKEND_STRUCTURE / PRODUCTION / FRONTEND_STRUCTURE),
 он приоритетнее.
@@ -19,7 +19,7 @@ description: Проверить дифф / PR / файлы на соответс
 - Перечислить затронутые области: backend-домены, core, миграции, события, фронт.
 
 ## Шаг 2 — отобрать применимые разделы
-Не гонять все 115 правил по каждому файлу — взять релевантные разделы:
+Не гонять все 128 правил по каждому файлу — взять релевантные разделы:
 
 | В диффе | Разделы чек-листа |
 |---|---|
@@ -29,6 +29,7 @@ description: Проверить дифф / PR / файлы на соответс
 | роутеры / схемы (контракт) | Платформа/API (1–16) |
 | frontend | Frontend (103–115), Платформа/API (5–11, 14) |
 | инфраструктура / CI / Docker | Эксплуатация (89–97), Безопасность (86–87), Тесты (98–102) |
+| ветки / PR / релиз / деплой | Git и доставка (116–128) |
 
 ## Шаг 3 — проверить и вынести вердикт
 Для каждого кандидата на нарушение — **подтвердить по коду** (прочитать контекст, не
